@@ -1,0 +1,146 @@
+/*Attribution:
+<a href="https://www.flaticon.com/free-icons/home" title="home icons">Home icons created by Aswell Studio - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/random" title="random icons">Random icons created by Afian Rochmah Afif - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/bookmark" title="bookmark icons">Bookmark icons created by Freepik - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/user" title="user icons">User icons created by Bombasticon Studio - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/edit" title="edit icons">Edit icons created by Pixel perfect - Flaticon</a>
+*/
+
+/*column styles*/
+
+.column {
+    float: left;
+}
+
+.column.left {
+    position: fixed;
+    width: 15%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: white;
+    overflow-x: hidden;
+}
+.column.left a {
+    padding: 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.column.left a:hover {
+    background-color: lightgrey;
+}
+
+.column.right {
+    float: right;
+    width: 84%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#top-name {
+    border-radius: 15px;
+    text-decoration: none;
+    padding-left: 15px;
+    color: black;
+    font-weight: bold;
+    font-size: large;
+}
+
+
+@media screen and (max-width:600px) {
+    .column {
+        width: 100%;
+    }
+}
+
+/*navigation button style*/
+
+.button {
+    border: none;
+    border-radius: 15px;
+    color: black;
+    width: auto;
+    padding: 15px 32px;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+
+/*Footer, header and body section*/
+
+body {
+    margin-left: 10px;
+    margin-right: 10px;
+    color: black;
+    font-family: "Open Sans", sans-serif;
+}
+
+footer {
+    margin-top: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+footer a {
+    text-decoration: none;
+    color: white;
+}
+
+/*Scroll back button section*/
+
+#scrollBtn {
+    width: 80%;
+    padding-left: 15px;
+    border: none;
+    top: 0;
+    opacity: 0.8;
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    text-decoration: none;
+    text-align: left;
+    color: black;
+    background-color: white;
+    font-weight: bold;
+    font-size: large;
+    display: block;
+    position: sticky;
+    position: -webkit-sticky;
+    z-index: 99;
+    outline: none;
+    cursor: pointer;
+}
+
+#scrollBtn.h1 {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: large;
+    padding: 0;
+}
+
+/*Card section*/
+
+.card {
+    border: lightgrey solid 1px;
+    border-radius: 20px;
+    color: black;
+    width: 70%;
+    padding: 15px;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px 5px 5px 5px;
+    cursor: pointer;
+}
