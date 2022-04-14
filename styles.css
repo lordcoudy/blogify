@@ -6,6 +6,12 @@
 <a href="https://www.flaticon.com/free-icons/edit" title="edit icons">Edit icons created by Pixel perfect - Flaticon</a>
 */
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 /*column styles*/
 
 .column {
@@ -78,8 +84,6 @@
 /*Footer, header and body section*/
 
 body {
-    margin-left: 10px;
-    margin-right: 10px;
     color: black;
     font-family: "Open Sans", sans-serif;
 }
@@ -101,7 +105,8 @@ footer a {
 
 #scrollBtn {
     width: 80%;
-    padding-left: 15px;
+    padding: 15px;
+
     border: none;
     top: 0;
     opacity: 0.8;
