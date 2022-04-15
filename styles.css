@@ -23,7 +23,7 @@
     width: 15%;
     z-index: 1;
     top: 0;
-    left: 0;
+    left: 5%;
     background-color: white;
     overflow-x: hidden;
 }
@@ -39,7 +39,8 @@
 
 .column.right {
     float: right;
-    width: 84%;
+    width: 100%;
+    text-align: center;
 }
 
 .row:after {
@@ -106,18 +107,18 @@ footer a {
 /*Scroll back button section*/
 
 #scrollBtn {
-    width: 80%;
+    width: 60%;
     padding: 15px;
-
     border: none;
     top: 0;
+    left: 20%;
     opacity: 0.8;
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
     text-decoration: none;
     text-align: left;
     color: black;
     background-color: white;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     font-weight: bold;
     font-size: large;
     display: block;
@@ -128,26 +129,29 @@ footer a {
     cursor: pointer;
 }
 
-#scrollBtn.h1 {
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-    font-size: large;
-    padding: 0;
-}
-
 /*Card section*/
 
 .card {
     border: lightgrey solid 1px;
     border-radius: 20px;
     color: black;
-    width: 70%;
+    width: 50%;
+    display: inline-block;
+    margin: 5px 5px 5px 5px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px 0 rgba(139, 139, 139, 0.37);
+}
+
+.card h1 {
     padding: 15px;
     text-align: left;
     text-decoration: none;
-    display: inline-block;
     font-size: 16px;
-    margin: 5px 5px 5px 5px;
-    cursor: pointer;
+}
+
+.card img {
+    padding: 1px;
+    width: 100%;
+    text-align: center;
+    border-radius: 20px;
 }
