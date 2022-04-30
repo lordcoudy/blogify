@@ -6,6 +6,21 @@
     <link rel="stylesheet" href="new_post_styles.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://cdn.tiny.cloud/1/uzkd05yfnkqwh5rah24mo87d7ip7v8ss4twofqazf5djlf5z/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector : "#mceText",
+            width: "100%",
+            height: "100%",
+            plugins: "save",
+            resize: false,
+            menubar: false,
+            toolbar: "undo redo | blocks | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | save",
+            icons: "material",
+            content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
+        });
+    </script>
 </head>
 <body>
 <div class="row">
@@ -16,31 +31,13 @@
             <a href="random.html" class="button" id="random-button"><img src="random.svg" height="20" width="20" style="margin-right: 10px">Random</a><br>
             <a href="bookmarks.html" class="button" id="bookmarks-button"><img src="bookmarks.svg" height="20" width="20" style="margin-right: 10px">Bookmarks</a><br>
             <a href="profile.html" class="button" id="profile-button"><img src="profile.svg" height="20" width="20" style="margin-right: 10px">Profile</a><br>
-            <a href="new_post.html" class="button"><img src="new_post.svg" height="20" width="20" style="margin-right: 10px">New post</a><br>
+            <a href="new_post.html" class="button" id="newButton"><img src="new_post.svg" height="20" width="20" style="margin-right: 10px">New post</a><br>
         </div>
     </div>
     <div class="column right">
-        <tinymce-editor api-key="uzkd05yfnkqwh5rah24mo87d7ip7v8ss4twofqazf5djlf5z"
-                        height="50em"
-                        width="100%"
-                        menubar="false"
-                        plugins="advlist autolink lists link image charmap preview anchor
-                searchreplace visualblocks code fullscreen
-                insertdatetime media table code help wordcount"
-                        toolbar="undo redo | blocks | bold italic backcolor |
-                alignleft aligncenter alignright alignjustify |
-                bullist numlist outdent indent | removeformat | help"
-                        content_style="body
-              {
-                font-family:Helvetica,Arial,sans-serif;
-                font-size:14px
-              }"
-        >
-                <p>Write your story or thoughts right here!</p>
-        </tinymce-editor>
-    </div>
-    <div class="column right">
-        <button onclick="submitFunction()" id="submitButton">Submit</button>
+        <form method="post" action="new_post.php" id="textForm">
+            <p></p>
+        </form>
     </div>
 </div>
 <footer>

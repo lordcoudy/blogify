@@ -81,6 +81,11 @@
     cursor: pointer;
 }
 
+#newButton {
+    background-color: cornflowerblue;
+    color: white;
+}
+
 
 /*Footer, header and body section*/
 

@@ -95,6 +95,11 @@ footer a {
     cursor: pointer;
 }
 
+#newButton {
+    background-color: cornflowerblue;
+    color: white;
+}
+
 /*Scroll back button section*/
 
 #scrollBtn {
@@ -118,4 +123,16 @@ footer a {
     z-index: 99;
     outline: none;
     cursor: pointer;
+}
+
+#textForm {
+    border: lightgrey solid 1px;
+    border-radius: 15px;
+    color: black;
+    width: 50%;
+    height: 50em;
+    display: inline-block;
+    margin: 2em 5px 1em 5px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px 0 rgba(139, 139, 139, 0.37);
 }
