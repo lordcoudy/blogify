@@ -82,7 +82,7 @@
 }
 
 #newButton {
-    background-color: cornflowerblue;
+    background-color: #00A1FE;
     color: white;
 }
 
@@ -147,6 +147,23 @@ footer a {
     box-shadow: 0 8px 20px 0 rgba(139, 139, 139, 0.37);
 }
 
+.card.register {
+    display: inline-block;
+    width: 50%;
+    text-align: left;
+    padding: 20px;
+    cursor: auto;
+}
+
+.card.login {
+    display: inline-block;
+    width: 50%;
+    margin: 5em;
+    text-align: left;
+    padding: 20px;
+    cursor: auto;
+}
+
 .card h1 {
     padding: 15px;
     text-align: left;
@@ -158,4 +175,23 @@ footer a {
     width: 100%;
     text-align: center;
     border-radius: 20px;
+}
+
+#textForm {
+    border: lightgrey solid 1px;
+    border-radius: 15px;
+    color: black;
+    width: 50%;
+    height: 30em;
+    display: inline-block;
+    margin: 2em 5px 1em 5px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px 0 rgba(139, 139, 139, 0.37);
+}
+
+table {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }

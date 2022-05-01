@@ -16,6 +16,13 @@ class Content {
                 ]
             );
         } catch (Exception $ex) { exit($ex->getMessage()); }
+
+// (F) DATABASE SETTINGS - CHANGE TO YOUR OWN!
+        define("DB_HOST", "localhost");
+        define("DB_NAME", "blogify_db");
+        define("DB_CHARSET", "utf8");
+        define("DB_USER", "root");
+        define("DB_PASSWORD", "pdtpl0ktn");
     }
 
     // (C) DESTRUCTOR - CLOSE DATABASE CONNECTION
