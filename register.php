@@ -14,6 +14,8 @@ if($db === false){
     die("Error: connection error. " . mysqli_connect_error());
 }
 
+$msg = 'Please fill this form to create an account.';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
     $username = trim($_POST['login']);
@@ -21,39 +23,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $password_hash_salt = password_hash($password, PASSWORD_BCRYPT, array('cost' => 11));
 
     if($query = $db->prepare("SELECT * FROM users_tb WHERE users_login = ?")) {
-        $error = '';
         // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
         $query->bind_param('s', $username);
         $query->execute();
         // Store the result so we can check if the account exists in the database.
         $query->store_result();
         if ($query->num_rows > 0) {
-            $error .= '<p class="error">This username is already registered!</p>';
+            $msg .= '<p class="error">This username is already registered!</p>';
         } else {
             // Validate password
             if (strlen($password ) < 6) {
-                $error .= '<p class="error">Password must have at least 6 characters.</p>';
+                $msg .= '<p class="error">Password must have at least 6 characters.</p>';
             }
 
-            if (empty($error) ) {
+            if ($msg == 'Please fill this form to create an account.') {
                 $insertQuery = $db->prepare("INSERT INTO users_tb (users_login, users_password) VALUES (?, ?);");
                 $insertQuery->bind_param("ss", $username, $password_hash_salt);
                 $result = $insertQuery->execute();
                 if ($result) {
-                    $error .= '<p class="success">Your registration was successful!</p>';
+                    $msg .= '<p class="success">Your registration was successful!</p>';
                     $_SESSION["userid"] = $username;
                     $_SESSION["user"] =$result;
+                    header("location: main_page.php");
+                    exit;
                 } else {
-                    $error .= '<p class="error">Something went wrong!</p>';
+                    $msg .= '<p class="error">Something went wrong!</p>';
                 }
             }
         }
     }
     $query->close();
-    header("location: main.php");
-    // Close DB connection
-    mysqli_close($db);
 }
+mysqli_close($db);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,13 +69,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 <table>
     <tr>
         <td>
-            <img src="imgs/blogify.jpg" alt="Blogify">
+            <img src="imgs/blogify.svg" height="50em" style="margin-top: 20px" alt="Blogify">
         </td>
     </tr>
-    <tr class="register card">
+    <tr class="login card">
         <td>
-            <h2>Register</h2>
-            <p>Please fill this form to create an account.</p>
+            <h1>Register</h1>
+            <p><?=$msg?></p>
             <form action="" method="post">
                 <div class="form-group">
                     <input type="text" name="login" class="form-control" required placeholder="Username">
@@ -90,7 +91,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         </td>
     </tr>
 </table>
-
 <footer>
     <p>Made by Savva Balashov</p>
     <p><a href="mailto:balashovsava@mpei.ru">balashovsava@mpei.ru</a></p>

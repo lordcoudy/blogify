@@ -9,7 +9,7 @@ define('DBNAME', 'blogify_db'); // Database name
 /* connect to MySQL database */
 $db = mysqli_connect(DBSERVER, DBUSERNAME, DBPASSWORD, DBNAME);
 
-$error = '';
+$msg = 'Please fill in your username and password.';
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
     $username = trim($_POST['username']);
@@ -17,17 +17,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
     // validate if email is empty
     if (empty($username)) {
-        $error .= '<p class="error">Please enter username.</p>';
+        $msg .= '<p class="error">Please enter username.</p>';
     }
 
     // validate if password is empty
     if (empty($password)) {
-        $error .= '<p class="error">Please enter your password.</p>';
+        $msg .= '<p class="error">Please enter your password.</p>';
     }
 
     $result = $db->query("SELECT * FROM users_tb WHERE users_login = '$username'");
 
-    if (empty($error)) {
+    if ($msg == 'Please fill in your username and password.') {
         if($query = $db->prepare("SELECT * FROM users_tb WHERE users_login = ?")) {
             $query->bind_param('s', $username);
             $query->execute();
@@ -36,15 +36,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                 if (password_verify($password, $row[2])) {
                     $_SESSION["userid"] = $row[1];
                     $_SESSION["user"] = $row;
-
                     // Redirect the user to welcome page
-                    header("location: main.php");
+                    header("location: main_page.php");
                     exit;
                 } else {
-                    $error .= '<p class="error">The password is not valid.</p>';
+                    $msg .= '<p class="error">The password is not valid.</p>';
                 }
             } else {
-                $error .= '<p class="error">No User exist with that email address.</p>';
+                $msg .= '<p class="error">No User exist with that username.</p>';
             }
         }
         $query->close();
@@ -65,10 +64,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 </head>
 <body>
 <table>
+    <tr>
+        <td>
+            <img src="imgs/blogify.svg" height="50em" style="margin-top: 20px" alt="Blogify">
+        </td>
+    </tr>
     <tr class="login card">
         <td>
-                <h2>Login</h2>
-                <p>Please fill in your email and password.</p>
+                <h1>Login</h1>
+                <p><?=$msg?></p>
                 <form action="" method="post">
                     <div class="form-group">
                         <input type="text" name="username" class="form-control" required placeholder="Username"/>
@@ -84,6 +88,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         </td>
     </tr>
 </table>
-
+<footer>
+    <p>Made by Savva Balashov</p>
+    <p><a href="mailto:balashovsava@mpei.ru">balashovsava@mpei.ru</a></p>
+</footer>
 </body>
 </html>
