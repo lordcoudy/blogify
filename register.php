@@ -35,13 +35,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                 $error .= '<p class="error">Password must have at least 6 characters.</p>';
             }
 
-            // Validate confirm password
             if (empty($error) ) {
                 $insertQuery = $db->prepare("INSERT INTO users_tb (users_login, users_password) VALUES (?, ?);");
                 $insertQuery->bind_param("ss", $username, $password_hash_salt);
                 $result = $insertQuery->execute();
                 if ($result) {
                     $error .= '<p class="success">Your registration was successful!</p>';
+                    $_SESSION["userid"] = $username;
+                    $_SESSION["user"] =$result;
                 } else {
                     $error .= '<p class="error">Something went wrong!</p>';
                 }
@@ -49,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         }
     }
     $query->close();
-    header("location: index.html");
+    header("location: main.php");
     // Close DB connection
     mysqli_close($db);
 }
@@ -76,17 +77,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             <p>Please fill this form to create an account.</p>
             <form action="" method="post">
                 <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" name="login" class="form-control" required>
+                    <input type="text" name="login" class="form-control" required placeholder="Username">
                 </div>
                 <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" name="password" class="form-control" required>
+                    <input type="password" name="password" class="form-control" required placeholder="Password">
                 </div>
                 <div class="form-group">
-                    <input type="submit" name="submit" class="btn btn-primary" value="Submit">
+                    <input type="submit" name="submit" class="button submit" value="Submit">
                 </div>
-                <p>Already have an account? <a href="login.php">Login here</a>.</p>
+                <p>Already have an account? <a href="login.php" class="button login">Login here</a></p>
             </form>
         </td>
     </tr>

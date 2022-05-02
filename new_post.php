@@ -1,4 +1,6 @@
 <?php
+require_once "session.php";
+
 class Content {
     // (A) PROPERTIES
     public $pdo = null; // PDO object
@@ -35,9 +37,9 @@ class Content {
     function save ($content) {
         try {
             $this->query = $this->pdo->prepare(
-                "INSERT INTO blogs (blogs_text) VALUES (?)"
+                "INSERT INTO blogs (blogs_text, username) VALUES (?, ?)"
             );
-            $this->query->execute([$content]);
+            $this->query->execute([$content, $_SESSION["userid"]]);
             return true;
         } catch (Exception $ex) {
             $this->error = $ex->getMessage();
@@ -78,5 +80,5 @@ if (isset($_POST["content"])) {
         : "<div>{$_CONTENT->error}</div>" ;
 }
 
-header("Location: profile.html");
+header("Location: profile.php");
 exit();

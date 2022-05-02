@@ -33,8 +33,9 @@
     display: block;
 }
 
-.column.left a:hover {
-    background-color: lightgrey;
+.column a:hover {
+    border-radius: 15px;
+    border: #00A1FE 1px solid;
 }
 
 .column.right {
@@ -47,15 +48,6 @@
     content: "";
     display: table;
     clear: both;
-}
-
-#top-name {
-    border-radius: 15px;
-    text-decoration: none;
-    padding-left: 15px;
-    color: black;
-    font-weight: bold;
-    font-size: large;
 }
 
 
@@ -84,6 +76,17 @@
 #newButton {
     background-color: #00A1FE;
     color: white;
+}
+
+.button.login {
+    padding: 10px;
+    border: #00A1FE 1px solid;
+}
+
+.button.submit {
+    padding: 10px;
+    border: #00A1FE 1px solid;
+    background-color: white;
 }
 
 
@@ -138,13 +141,21 @@ footer a {
 
 .card {
     border: none;
+    padding: 15px;
     border-radius: 20px;
     color: black;
+    text-align: left;
+    text-decoration: none;
+    font-size: 16px;
     width: 50%;
     display: inline-block;
     margin: 5px 5px 15px 5px;
-    cursor: pointer;
     box-shadow: 0 8px 20px 0 rgba(139, 139, 139, 0.37);
+}
+
+.card.profile {
+    text-align: center;
+    margin-top: 2em;
 }
 
 .card.register {
@@ -152,7 +163,7 @@ footer a {
     width: 50%;
     text-align: left;
     padding: 20px;
-    cursor: auto;
+    cursor: pointer;
 }
 
 .card.login {
@@ -161,20 +172,17 @@ footer a {
     margin: 5em;
     text-align: left;
     padding: 20px;
-    cursor: auto;
+    cursor: pointer;
 }
 
-.card h1 {
-    padding: 15px;
-    text-align: left;
-    text-decoration: none;
-    font-size: 16px;
+.card.rand {
+    margin-top: 5em;
 }
 
-.card img {
-    width: 100%;
-    text-align: center;
-    border-radius: 20px;
+.card h2 {
+    font-weight: bold;
+    font-size: medium;
+    text-align: right;
 }
 
 #textForm {
@@ -194,4 +202,15 @@ table {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+}
+
+.form-control {
+    height: 3em;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: lightgrey solid 1px;
+    border-radius: 15px;
+    color: black;
+    padding-left: 5px;
+    padding-right: 5px;
 }

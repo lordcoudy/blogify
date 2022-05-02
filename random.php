@@ -1,3 +1,24 @@
+<?php
+    require_once "session.php";
+    require_once "config.php";
+$db = mysqli_connect(DBSERVER, DBUSERNAME, DBPASSWORD, DBNAME);
+
+$error = '';
+
+if(isset($_SESSION["userid"])){
+    $user = $_SESSION["userid"];
+} else
+{
+    $user = "Guest";
+}
+
+if ($result = $db->query("SELECT blogs_text, username FROM blogs ORDER BY RAND() LIMIT 1"))
+{
+    $row = $result->fetch_row();
+    $rand_texts[] = ['text' => $row[0], 'user' => $row[1]];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,9 +40,20 @@
         </div>
     </div>
     <div class="column right">
-        <form method="post" action="new_post.php" id="textForm">
-            <textarea id="mceText" name="content" placeholder="Write your story or thoughts right here!"></textarea>
-        </form>
+        <?php
+        if (empty($rand_texts)){?>
+            <div class="card rand">
+                    <p>No posts written yet</p>
+            </div>
+            <?php
+        } else
+        {
+            foreach ($rand_texts as $r_text): ?>
+                <div class="card rand">
+                        <p><?=$r_text['text']?></p>
+                        <h2>@<?=$r_text['user']?></h2>
+                </div>
+            <?php endforeach; }?>
     </div>
 </div>
 </body>

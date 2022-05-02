@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                     $_SESSION["user"] = $row;
 
                     // Redirect the user to welcome page
-                    header("location: index.html");
+                    header("location: main.php");
                     exit;
                 } else {
                     $error .= '<p class="error">The password is not valid.</p>';
@@ -71,17 +71,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                 <p>Please fill in your email and password.</p>
                 <form action="" method="post">
                     <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" name="username" class="form-control" required />
+                        <input type="text" name="username" class="form-control" required placeholder="Username"/>
                     </div>
                     <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" name="password" class="form-control" required>
+                        <input type="password" name="password" class="form-control" required placeholder="Password">
                     </div>
                     <div class="form-group">
-                        <input type="submit" name="submit" class="btn btn-primary" value="Submit">
+                        <input type="submit" name="submit" class="button submit" value="Submit">
                     </div>
-                    <p>Don't have an account? <a href="register.php">Register here</a>.</p>
+                    <p>Don't have an account? <a href="register.php" class="button login">Register here</a></p>
                 </form>
         </td>
     </tr>

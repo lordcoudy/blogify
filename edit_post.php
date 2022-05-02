@@ -1,3 +1,40 @@
+<?php
+require_once "session.php";
+require_once "config.php";
+
+
+try {
+    $db = mysqli_connect(DBSERVER, DBUSERNAME, DBPASSWORD, DBNAME);
+
+    $blog_id= $_POST['id'];
+    $sql = "SELECT blogs_text, idblogs FROM blogs WHERE idblogs = '$blog_id'";
+
+    $result = $db->query($sql);
+
+    $row = $result->fetch_row();
+
+    if (isset($_POST["content"])) {
+
+        try {
+            $content = $_POST["content"];
+            $sql = "UPDATE blogs SET blogs_text='$content' WHERE idblogs='$blog_id'";
+            $db->query($sql);
+            header('location: profile.php');
+        } catch (Exception $ex) {
+            $this->error = $ex->getMessage();
+        }
+    }
+}
+catch (PDOException $e) {
+    $title = 'An error has occurred';
+
+    $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' .
+        $e->getFile() . ':' . $e->getLine();
+}
+
+//header("profile.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,8 +76,11 @@
         </div>
     </div>
     <div class="column right">
-        <form method="post" action="new_post.php" id="textForm">
-            <textarea id="mceText" name="content"></textarea>
+        <form method="post" action="edit_post.php" id="textForm">
+            <textarea id="mceText" name="content">
+                <p><?=$row[0]?></p>
+            </textarea>
+            <input type="hidden" name="id" value="<?=$row[1]?>">
         </form>
     </div>
 </div>
@@ -52,3 +92,4 @@
 <script src="scripts.js"></script>
 </body>
 </html>
+

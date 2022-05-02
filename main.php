@@ -1,30 +1,35 @@
+<?php
+require_once "session.php";
+require_once "config.php";
+
+$db = mysqli_connect(DBSERVER, DBUSERNAME, DBPASSWORD, DBNAME);
+
+$error = '';
+
+if ($result = $db->query("SELECT blogs_text, username FROM blogs"))
+{
+    while ($row = $result->fetch_row())
+    {
+        $texts[] = ['text' => $row[0], 'user' => $row[1]];
+    }
+} else
+{
+    $tmp = "No posts written yet";
+    $texts[] = $tmp;
+}
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blogify</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <script src="https://cdn.tiny.cloud/1/uzkd05yfnkqwh5rah24mo87d7ip7v8ss4twofqazf5djlf5z/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-            selector : "#mceText",
-            width: "100%",
-            height: "100%",
-            resize: false,
-            menubar: false,
-            plugins: [
-                'save', 'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-                'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
-            ],
-            toolbar: "undo redo | blocks | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | save",
-            icons: "material",
-            content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
-        });
-    </script>
 </head>
 <body>
 <div class="row">
@@ -39,16 +44,20 @@
         </div>
     </div>
     <div class="column right">
-        <form method="post" action="new_post.php" id="textForm">
-            <textarea id="mceText" name="content"></textarea>
-        </form>
+        <button onclick="topFunction()" id="scrollBtn">Home</button>
+        <?php
+        foreach ($texts as $text): ?>
+        <div class="card">
+                <p><?=$text['text'] ?></p>
+                <h2>@<?=$text['user']?></h2>
+        </div>
+        <?php endforeach; ?>
     </div>
 </div>
 <footer>
     <p>Made by Savva Balashov</p>
     <p><a href="mailto:balashovsava@mpei.ru">balashovsava@mpei.ru</a></p>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-webcomponent@1/dist/tinymce-webcomponent.min.js"></script>
 <script src="scripts.js"></script>
 </body>
 </html>
