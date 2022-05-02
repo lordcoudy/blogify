@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 <table>
     <tr>
         <td>
-            <img src="imgs/blogify.svg" height="50em" style="margin-top: 20px" alt="Blogify">
+            <img src="../imgs/blogify.svg" height="50em" style="margin-top: 20px" alt="Blogify">
         </td>
     </tr>
     <tr class="login card">
@@ -92,5 +92,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     <p>Made by Savva Balashov</p>
     <p><a href="mailto:balashovsava@mpei.ru">balashovsava@mpei.ru</a></p>
 </footer>
+<script src="scripts.js"></script>
 </body>
 </html>

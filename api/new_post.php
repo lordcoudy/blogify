@@ -82,3 +82,4 @@ if (isset($_POST["content"])) {
 
 header("Location: profile.php");
 exit();
+?>

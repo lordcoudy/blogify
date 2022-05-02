@@ -69,7 +69,7 @@ mysqli_close($db);
 <table>
     <tr>
         <td>
-            <img src="imgs/blogify.svg" height="50em" style="margin-top: 20px" alt="Blogify">
+            <img src="../imgs/blogify.svg" height="50em" style="margin-top: 20px" alt="Blogify">
         </td>
     </tr>
     <tr class="login card">
