@@ -36,7 +36,7 @@ if ($result = $db->query("SELECT blogs_text, username FROM blogs ORDER BY RAND()
             <a href="main_page.php" class="button" id="home-button"><img src="../imgs/home.svg" height="20" width="20" style="margin-right: 10px" alt="home">Home</a><br>
             <a href="random.php" class="button" id="random-button"><img src="../imgs/random.svg" height="20" width="20" style="margin-right: 10px" alt="random">Random</a><br>
             <a href="profile.php" class="button" id="profile-button"><img src="../imgs/profile.svg" height="20" width="20" style="margin-right: 10px" alt="profile">Profile</a><br>
-            <a href="new_post.html" class="button" id="newButton"><img src="../imgs/new_post.svg" height="20" width="20" style="margin-right: 10px" alt="new_post">New post</a><br>
+            <a href="new_post_page.html" class="button" id="newButton"><img src="../imgs/new_post.svg" height="20" width="20" style="margin-right: 10px" alt="new_post">New post</a><br>
         </div>
     </div>
     <div class="column right">
