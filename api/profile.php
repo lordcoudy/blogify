@@ -1,6 +1,6 @@
 <?php
-require_once "session.php";
-require_once "config.php";
+require_once "configs/session.php";
+require_once "configs/config.php";
 
 $db = mysqli_connect(DBSERVER, DBUSERNAME, DBPASSWORD, DBNAME);
 
@@ -28,7 +28,7 @@ if ($result = $db->query("SELECT blogs_text, idblogs FROM blogs where username='
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles_and_scripts/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Profile</title>
@@ -72,7 +72,7 @@ if ($result = $db->query("SELECT blogs_text, idblogs FROM blogs where username='
             </div>
         <?php endforeach; }?>
         <div class="card profile">
-            <a href="logout.php" class="button" id="logoutButton">Log Out</a>
+            <a href="configs/logout.php" class="button" id="logoutButton">Log Out</a>
         </div>
     </div>
 </div>

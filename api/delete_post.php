@@ -1,6 +1,6 @@
 <?php
-require_once "session.php";
-require_once "config.php";
+require_once "configs/session.php";
+require_once "configs/config.php";
 
 try {
     $db = mysqli_connect(DBSERVER, DBUSERNAME, DBPASSWORD, DBNAME);

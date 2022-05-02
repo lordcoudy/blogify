@@ -1,6 +1,6 @@
 <?php
-require_once "session.php";
-require_once "config.php";
+require_once "configs/session.php";
+require_once "configs/config.php";
 
 $db = mysqli_connect(DBSERVER, DBUSERNAME, DBPASSWORD, DBNAME);
 
@@ -27,7 +27,7 @@ if ($result = $db->query("SELECT blogs_text, username FROM blogs"))
 <head>
     <meta charset="UTF-8">
     <title>Blogify</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles_and_scripts/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -57,6 +57,6 @@ if ($result = $db->query("SELECT blogs_text, username FROM blogs"))
     <p>Made by Savva Balashov</p>
     <p><a href="mailto:balashovsava@mpei.ru">balashovsava@mpei.ru</a></p>
 </footer>
-<script src="scripts.js"></script>
+<script src="styles_and_scripts/scripts.js"></script>
 </body>
 </html>
