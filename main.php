@@ -38,7 +38,6 @@ if ($result = $db->query("SELECT blogs_text, username FROM blogs"))
             <a href="main.php" id="top-name"><img src="imgs/blogify.svg" height="40em" alt="Blogify"></a>
             <a href="main.php" class="button" id="home-button"><img src="imgs/home.svg" height="20" width="20" style="margin-right: 10px">Home</a><br>
             <a href="random.php" class="button" id="random-button"><img src="imgs/random.svg" height="20" width="20" style="margin-right: 10px">Random</a><br>
-            <a href="bookmarks.html" class="button" id="bookmarks-button"><img src="imgs/bookmarks.svg" height="20" width="20" style="margin-right: 10px">Bookmarks</a><br>
             <a href="profile.php" class="button" id="profile-button"><img src="imgs/profile.svg" height="20" width="20" style="margin-right: 10px">Profile</a><br>
             <a href="new_post.html" class="button" id="newButton"><img src="imgs/new_post.svg" height="20" width="20" style="margin-right: 10px">New post</a><br>
         </div>
