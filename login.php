@@ -1,10 +1,6 @@
 <?php
 require_once "configs/session.php";
-
-define('DBSERVER', 'localhost'); // Database server
-define('DBUSERNAME', 'root'); // Database username
-define('DBPASSWORD', 'pdtpl0ktn'); // Database password
-define('DBNAME', 'blogify_db'); // Database name
+require_once "configs/config.php";
 
 /* connect to MySQL database */
 $db = mysqli_connect(DBSERVER, DBUSERNAME, DBPASSWORD, DBNAME);
@@ -66,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 <table>
     <tr>
         <td>
-            <img src="../imgs/blogify.svg" height="50em" style="margin-top: 20px" alt="Blogify">
+            <img src="imgs/blogify.svg" height="50em" style="margin-top: 20px" alt="Blogify">
         </td>
     </tr>
     <tr class="login card">
@@ -88,9 +84,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         </td>
     </tr>
 </table>
-<footer>
+<footer class="login-footer">
     <p>Made by Savva Balashov</p>
     <p><a href="mailto:balashovsava@mpei.ru">balashovsava@mpei.ru</a></p>
+    <p><a href="https://vk.com/magistrofhedgehogs"></a>vk</p>
 </footer>
 <script src="styles_and_scripts/scripts.js"></script>
 </body>

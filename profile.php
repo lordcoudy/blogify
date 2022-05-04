@@ -14,11 +14,11 @@ if(isset($_SESSION["userid"])){
 }
 
 
-if ($result = $db->query("SELECT blogs_text, idblogs FROM blogs where username='$user'"))
+if ($result = $db->query("SELECT blogs_text, idblogs, created FROM blogs where username='$user'"))
 {
     while ($row = $result->fetch_row())
     {
-        $user_texts[] = ['text' => $row[0], 'id' => $row[1]];
+        $user_texts[] = ['text' => $row[0], 'id' => $row[1], 'edited' => $row[2]];
     }
 }
 
@@ -37,11 +37,11 @@ if ($result = $db->query("SELECT blogs_text, idblogs FROM blogs where username='
 <div class="row">
     <div class="column left">
         <div>
-            <a href="main_page.php" id="top-name"><img src="../imgs/blogify.svg" height="40em" alt="Blogify"></a>
-            <a href="main_page.php" class="button" id="home-button"><img src="../imgs/home.svg" height="20" width="20" style="margin-right: 10px" alt="home">Home</a><br>
-            <a href="random.php" class="button" id="random-button"><img src="../imgs/random.svg" height="20" width="20" style="margin-right: 10px" alt="random">Random</a><br>
-            <a href="profile.php" class="button" id="profile-button"><img src="../imgs/profile.svg" height="20" width="20" style="margin-right: 10px" alt="profile">Profile</a><br>
-            <a href="new_post_page.html" class="button" id="newButton"><img src="../imgs/new_post.svg" height="20" width="20" style="margin-right: 10px" alt="new_post">New post</a><br>
+            <a href="main_page.php" id="top-name"><img src="imgs/blogify.svg" height="40em" alt="Blogify"></a>
+            <a href="main_page.php" class="button" id="home-button"><img src="imgs/home.svg" height="20" width="20" style="margin-right: 10px" alt="home">Home</a><br>
+            <a href="random.php" class="button" id="random-button"><img src="imgs/random.svg" height="20" width="20" style="margin-right: 10px" alt="random">Random</a><br>
+            <a href="profile.php" class="button" id="profile-button"><img src="imgs/profile.svg" height="20" width="20" style="margin-right: 10px" alt="profile">Profile</a><br>
+            <a href="new_post_page.html" class="button" id="newButton"><img src="imgs/new_post.svg" height="20" width="20" style="margin-right: 10px" alt="new_post">New post</a><br>
         </div>
     </div>
     <div class="column right">
@@ -58,10 +58,11 @@ if ($result = $db->query("SELECT blogs_text, idblogs FROM blogs where username='
         <?php
         } else
         {
-        foreach ($user_texts as $u_text): ?>
+        foreach (array_reverse($user_texts) as $u_text): ?>
             <div class="card">
                 <form action="delete_post.php" method="post">
                     <p><?=$u_text['text']?></p>
+                    <h6><?=$u_text['edited']?></h6>
                     <input type="hidden" name="id" value="<?=$u_text['id']?>">
                     <input class="button submit" type="submit" value="Delete">
                 </form>
@@ -72,9 +73,14 @@ if ($result = $db->query("SELECT blogs_text, idblogs FROM blogs where username='
             </div>
         <?php endforeach; }?>
         <div class="card profile">
-            <a href="configs/logout.php" class="button" id="logoutButton">Log Out</a>
+            <a href="logout.php" class="button" id="logoutButton">Log Out</a>
         </div>
     </div>
 </div>
+<footer class="custom-footer">
+    <p>Made by Savva Balashov</p>
+    <p><a href="mailto:balashovsava@mpei.ru">balashovsava@mpei.ru</a></p>
+    <p><a href="https://vk.com/magistrofhedgehogs"></a>vk</p>
+</footer>
 </body>
 </html>
