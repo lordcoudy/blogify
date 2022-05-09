@@ -4,24 +4,18 @@ require_once "configs/session.php";
 require_once "configs/config.php";
 
 try {
-
     $db = mysqli_connect(DBSERVER, DBUSERNAME, DBPASSWORD, DBNAME);
 
-    // DB query to delete
-    $sql = 'DELETE FROM blogs WHERE idblogs = ?';
+    // db query to delete user
+    $sql = 'DELETE FROM users_tb WHERE users_login = ?';
 
     $query = $db->prepare($sql);
 
-    $query->bind_param('i', $_POST['id']);
+    $query->bind_param('s', $_POST['id']);
     $query->execute();
 
-    // If admin => GoTo admin page, else go to user page
-    if($_SESSION["userid"] == "admin"){
-        header("location: control_page.php");
-    } else
-    {
-        header("location: profile.php");
-    }
+    // GoTo admin page
+    header('location: control_users.php');
 }
 catch (PDOException $e) {
     $title = 'An error has occurred';

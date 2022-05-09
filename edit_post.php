@@ -1,4 +1,6 @@
 <?php
+
+// Initialisation
 require_once "configs/session.php";
 require_once "configs/config.php";
 
@@ -7,22 +9,34 @@ try {
     $msg = '';
     $db = mysqli_connect(DBSERVER, DBUSERNAME, DBPASSWORD, DBNAME);
 
+    // Get id of blog and set db query to get that blog
     $blog_id= $_POST['id'];
     $sql = "SELECT blogs_text, idblogs FROM blogs WHERE idblogs = '$blog_id'";
 
     $result = $db->query($sql);
 
+    // Get blog text and id to string array
     $row = $result->fetch_row();
 
+    // If text has been edited and saved
     if (isset($_POST["content"])) {
-
         try {
+            // Update text of blog and go to profile
             $content = $_POST["content"];
-            $sql = "UPDATE blogs SET blogs_text=? WHERE idblogs=?";
+            $sql = "UPDATE blogs SET blogs_text=?, created=CURRENT_TIMESTAMP WHERE idblogs=?";
             $query = $db->prepare($sql);
+            $search = 'img';
+            $replace = 'img style="max-width: 100%; height: auto; border-radius: 15px;" ';
+            $count = 1;
+            $content = str_replace($search, $replace, $content, $count);
             $query->bind_param('ss', $content, $blog_id);
             $query->execute();
-            header('location: profile.php');
+            if($_SESSION["userid"] == "admin"){
+                header("location: control_page.php");
+            } else
+            {
+                header("location: profile.php");
+            }
         } catch (Exception $ex) {
             $msg = $ex->getMessage();
         }
@@ -86,14 +100,13 @@ catch (PDOException $e) {
             },
             images_file_types: 'jpg,svg,webp, gif',
             plugins: [
-                'save', 'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                'save', 'advlist', 'autolink', 'lists', 'image', 'charmap', 'preview',
                 'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                'insertdatetime', 'table', 'code', 'help', 'wordcount'
             ],
             toolbar: "undo redo | blocks | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | save",
             icons: "material",
-            content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px } " +
-                " img{ max-width: 100%; max-height: 100%; border-radius: 15px; padding 5px; }"
+            content_css: './styles_and_scripts/writer.css?' + new Date().getTime()
         });
     </script>
     <title>Edit</title>
@@ -102,7 +115,7 @@ catch (PDOException $e) {
 <div class="row">
     <div class="column left">
         <div>
-            <a href="main_page.php" id="top-name"><img src="imgs/blogify.svg" height="40em" alt="Blogify"></a>
+            <a href="main_page.php" id="top-name"><img src="imgs/blogify.svg" height="40px" alt="Blogify"></a>
             <a href="main_page.php" class="button" id="home-button"><img src="imgs/home.svg" height="20" width="20" style="margin-right: 10px" alt="home">Home</a><br>
             <a href="random.php" class="button" id="random-button"><img src="imgs/random.svg" height="20" width="20" style="margin-right: 10px" alt="random">Random</a><br>
             <a href="profile.php" class="button" id="profile-button"><img src="imgs/profile.svg" height="20" width="20" style="margin-right: 10px" alt="profile">Profile</a><br>
@@ -122,7 +135,7 @@ catch (PDOException $e) {
 <footer class="random-footer">
     <p>Made by Savva Balashov</p>
     <p><a href="mailto:balashovsava@mpei.ru">balashovsava@mpei.ru</a></p>
-    <p><a href="https://vk.com/magistrofhedgehogs"></a></>vk</p>
+    <p><a href="https://vk.com/magistrofhedgehogs">vk</a></p>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-webcomponent@1/dist/tinymce-webcomponent.min.js"></script>
 <script src="styles_and_scripts/scripts.js"></script>

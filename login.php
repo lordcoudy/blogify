@@ -1,39 +1,51 @@
 <?php
+// Initialisation
 require_once "configs/session.php";
 require_once "configs/config.php";
 
-/* connect to MySQL database */
+// Connect to MySQL database
 $db = mysqli_connect(DBSERVER, DBUSERNAME, DBPASSWORD, DBNAME);
 
 $msg = 'Please fill in your username and password.';
+// If login button is pressed
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    // validate if email is empty
+    // Validate if email is empty
     if (empty($username)) {
         $msg .= '<p class="error">Please enter username.</p>';
     }
 
-    // validate if password is empty
+    // Validate if password is empty
     if (empty($password)) {
         $msg .= '<p class="error">Please enter your password.</p>';
     }
 
+    // db query to get user
     $result = $db->query("SELECT * FROM users_tb WHERE users_login = '$username'");
 
+    // If no errors continue
     if ($msg == 'Please fill in your username and password.') {
+        // Get array of strings with username and password
         if($query = $db->prepare("SELECT * FROM users_tb WHERE users_login = ?")) {
             $query->bind_param('s', $username);
             $query->execute();
             $row = mysqli_fetch_row($result);
+            // Verifying password^ that was hashed and salted and assigning user data to current session
             if ($row) {
                 if (password_verify($password, $row[2])) {
-                    $_SESSION["userid"] = $row[1];
-                    $_SESSION["user"] = $row;
+                    $_SESSION["userid"] = $username;
+                    $_SESSION["user"] = $row[0];
                     // Redirect the user to welcome page
-                    header("location: main_page.php");
+                    if ($username == "admin")
+                    {
+                        header("location: control_page.php");
+                    } else
+                    {
+                        header("location: main_page.php");
+                    }
                     exit;
                 } else {
                     $msg .= '<p class="error">The password is not valid.</p>';
@@ -54,12 +66,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="shortcut icon" type="image/x-icon" href="imgs/favicon.ico" />
     <link rel="stylesheet" href="styles_and_scripts/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<table>
+<table class="small">
     <tr>
         <td>
             <img src="imgs/blogify.svg" height="50em" style="margin-top: 20px" alt="Blogify">
@@ -85,9 +98,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     </tr>
 </table>
 <footer class="login-footer">
-    <p>Made by Savva Balashov</p>
-    <p><a href="mailto:balashovsava@mpei.ru">balashovsava@mpei.ru</a></p>
-    <p><a href="https://vk.com/magistrofhedgehogs"></a>vk</p>
+        <p>Made by Savva Balashov</p>
+        <p><a href="mailto:balashovsava@mpei.ru">balashovsava@mpei.ru</a></p>
+        <p><a href="https://vk.com/magistrofhedgehogs">vk</a></p>
 </footer>
 <script src="styles_and_scripts/scripts.js"></script>
 </body>

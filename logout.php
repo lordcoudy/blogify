@@ -1,10 +1,6 @@
 <?php
-// Start the session
-session_start();
-
 // Destroy the session.
-if (session_destroy()) {
-    // redirect to the login page
-    header("Location: register.php");
-    exit;
-}
+session_start();
+$_SESSION["user_id"] = "";
+session_destroy();
+header("Location: index.php");

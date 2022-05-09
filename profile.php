@@ -1,4 +1,5 @@
 <?php
+// Initialisation
 require_once "configs/session.php";
 require_once "configs/config.php";
 
@@ -6,14 +7,15 @@ $db = mysqli_connect(DBSERVER, DBUSERNAME, DBPASSWORD, DBNAME);
 
 $error = '';
 
+// Check if session is still active
 if(isset($_SESSION["userid"])){
     $user = $_SESSION["userid"];
 } else
 {
-    $user = "Guest";
+    header("location: register.php");
 }
 
-
+// Get all blogs of current user
 if ($result = $db->query("SELECT blogs_text, idblogs, created FROM blogs where username='$user'"))
 {
     while ($row = $result->fetch_row())
@@ -28,6 +30,7 @@ if ($result = $db->query("SELECT blogs_text, idblogs, created FROM blogs where u
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" href="imgs/favicon.ico" />
     <link rel="stylesheet" href="styles_and_scripts/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -37,7 +40,7 @@ if ($result = $db->query("SELECT blogs_text, idblogs, created FROM blogs where u
 <div class="row">
     <div class="column left">
         <div>
-            <a href="main_page.php" id="top-name"><img src="imgs/blogify.svg" height="40em" alt="Blogify"></a>
+            <a href="main_page.php" id="top-name"><img src="imgs/blogify.svg" height="40px" alt="Blogify"></a>
             <a href="main_page.php" class="button" id="home-button"><img src="imgs/home.svg" height="20" width="20" style="margin-right: 10px" alt="home">Home</a><br>
             <a href="random.php" class="button" id="random-button"><img src="imgs/random.svg" height="20" width="20" style="margin-right: 10px" alt="random">Random</a><br>
             <a href="profile.php" class="button" id="profile-button"><img src="imgs/profile.svg" height="20" width="20" style="margin-right: 10px" alt="profile">Profile</a><br>
@@ -77,10 +80,10 @@ if ($result = $db->query("SELECT blogs_text, idblogs, created FROM blogs where u
         </div>
     </div>
 </div>
-<footer class="custom-footer">
+<footer class="random-footer">
     <p>Made by Savva Balashov</p>
     <p><a href="mailto:balashovsava@mpei.ru">balashovsava@mpei.ru</a></p>
-    <p><a href="https://vk.com/magistrofhedgehogs"></a>vk</p>
+    <p><a href="https://vk.com/magistrofhedgehogs">vk</a></p>
 </footer>
 </body>
 </html>

@@ -1,4 +1,5 @@
 <?php
+// Initialisation
 require_once "configs/session.php";
 require_once "configs/config.php";
 
@@ -6,6 +7,9 @@ $db = mysqli_connect(DBSERVER, DBUSERNAME, DBPASSWORD, DBNAME);
 
 $error = '';
 
+$flag = false;
+
+// Get all blogs and assign them to array of strings
 if ($result = $db->query("SELECT blogs_text, username, created, idblogs FROM blogs"))
 {
     while ($row = $result->fetch_row())
@@ -18,27 +22,46 @@ if ($result = $db->query("SELECT blogs_text, username, created, idblogs FROM blo
     $texts[] = $tmp;
 }
 
+// Function to cut long text and add "more" button
 function readMoreHelper($story_desc, $chars = 1000)
 {
-    $story_desc = substr($story_desc, 0, $chars);
-    $story_desc = substr($story_desc, 0, strrpos($story_desc, ' '));
-    $story_desc = $story_desc . " <input type='submit' name='filler' id='moreButton' value='Show More...'>";
-
+        if (strlen($story_desc) > $chars && !mb_strpos($story_desc, 'img') !== false) {
+            $story_desc = substr($story_desc, 0, $chars);
+            $story_desc = substr($story_desc, 0, strrpos($story_desc, ' '));
+            $story_desc = $story_desc . " <input type='submit' name='filler' id='moreButton' value='Show More...'>";
+        }
     return $story_desc;
 }
 
+// If "more" button is pressed
 if(isset($_POST['more_id'])){
     $shown = $_POST['more_id'];
+    $sort = $_SESSION['sort'];
+    $flag = true;
 } else
 {
     $shown = 0;
 }
 
+// If "less" button is pressed
 if(isset($_POST['less_id'])){
     $hidden = $_POST['less_id'];
+    $sort = $_SESSION['sort'];
+    $flag = true;
 } else
 {
     $hidden = 0;
+}
+
+// If "sort" switch is toggled
+if (!$flag) {
+    if (isset($_POST['sort'])) {
+        $sort = $_POST['sort'];
+        $_SESSION['sort'] = $sort;
+    } else {
+        $sort = "off";
+        $_SESSION['sort'] = $sort;
+    }
 }
 
 ?>
@@ -48,6 +71,7 @@ if(isset($_POST['less_id'])){
 <head>
     <meta charset="UTF-8">
     <title>Blogify</title>
+    <link rel="shortcut icon" type="image/x-icon" href="imgs/favicon.ico" />
     <link rel="stylesheet" href="styles_and_scripts/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -56,7 +80,7 @@ if(isset($_POST['less_id'])){
 <div class="row">
     <div class="column left">
         <div>
-            <a href="main_page.php" id="top-name"><img src="imgs/blogify.svg" height="40em" alt="Blogify"></a>
+            <a href="main_page.php" id="top-name"><img src="imgs/blogify.svg" height="40px" alt="Blogify"></a>
             <a href="main_page.php" class="button" id="home-button"><img src="imgs/home.svg" height="20" width="20" style="margin-right: 10px" alt="home">Home</a><br>
             <a href="random.php" class="button" id="random-button"><img src="imgs/random.svg" height="20" width="20" style="margin-right: 10px" alt="random">Random</a><br>
             <a href="profile.php" class="button" id="profile-button"><img src="imgs/profile.svg" height="20" width="20" style="margin-right: 10px" alt="profile">Profile</a><br>
@@ -64,20 +88,38 @@ if(isset($_POST['less_id'])){
         </div>
     </div>
     <div class="column right">
+        <?php if ($sort == "off"){
+            $texts = array_reverse($texts); ?>
+            <form method="post" action="main_page.php">
+                <div id="toggle">Switch Sort</div>
+                <label class="switch">
+                    <input type="checkbox" onChange="this.form.submit()" name="sort">
+                    <span class="slider round""></span>
+                </label>
+            </form>
+        <?php } else {?>
+            <form method="post" action="main_page.php">
+                <div id="toggle">Switch Sort</div>
+                <label class="switch">
+                    <input type="checkbox" onChange="this.form.submit()" checked name="sort">
+                    <span class="slider round""></span>
+                </label>
+            </form>
+        <?php }?>
         <button onclick="topFunction()" id="scrollBtn">Home</button>
         <?php
-        foreach (array_reverse($texts) as $text){?>
+        foreach ($texts as $text){?>
         <div class="card">
             <?php if ($shown == 0 || $text["id"] != $shown) {?>
                 <form method="post">
-                    <p><?=readMoreHelper($text['text'])?></p>
+                    <?=readMoreHelper($text['text'])?>
                     <input type='hidden' name='more_id' id='user_button' value='<?=$text["id"]?>'>
                 </form>
             <?php } else{?>
                 <?php if ($hidden != $text["id"] || $hidden == 0){?>
                     <span id="anchor"></span>
                     <form method="post">
-                        <p><?=$text['text']?></p>
+                        <?=$text['text']?>
                         <input type='submit' name='hide' id='moreButton' value='Show Less...'>
                         <input type='hidden' name='less_id' id='user_button' value='<?=$text["id"]?>'>
                     </form>
@@ -95,7 +137,7 @@ if(isset($_POST['less_id'])){
 <footer>
     <p>Made by Savva Balashov</p>
     <p><a href="mailto:balashovsava@mpei.ru">balashovsava@mpei.ru</a></p>
-    <p><a href="https://vk.com/magistrofhedgehogs"></a>vk</p>
+    <p><a href="https://vk.com/magistrofhedgehogs">vk</a></p>
 </footer>
 <script src="styles_and_scripts/scripts.js"></script>
 <script>
