@@ -7,7 +7,7 @@ try {
     $db = mysqli_connect(DBSERVER, DBUSERNAME, DBPASSWORD, DBNAME);
 
     // db query to delete user
-    $sql = 'DELETE FROM users_tb WHERE users_login = ?';
+    $sql = 'DELETE FROM your_user_table WHERE your_user_id = ?';
 
     $query = $db->prepare($sql);
 

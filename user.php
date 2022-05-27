@@ -16,7 +16,7 @@ if(isset($_POST['name'])){
 }
 
 // Get blogs of selected user and assign them to array of strings
-if ($result = $db->query("SELECT blogs_text, created FROM blogs where username='$user'"))
+if ($result = $db->query("SELECT your_text, your_text_time FROM your_text_table where your_text_username='$user'"))
 {
     while ($row = $result->fetch_row())
     {

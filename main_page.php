@@ -10,7 +10,7 @@ $error = '';
 $flag = false;
 
 // Get all blogs and assign them to array of strings
-if ($result = $db->query("SELECT blogs_text, username, created, idblogs FROM blogs"))
+if ($result = $db->query("SELECT your_text, your_text_username, your_text_time, your_text_id FROM your_text_table"))
 {
     while ($row = $result->fetch_row())
     {
