@@ -24,12 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     }
 
     // db query to get user
-    $result = $db->query("SELECT * FROM users_tb WHERE users_login = '$username'");
+    $result = $db->query("SELECT * FROM your_users_table WHERE your_users_login = '$username'");
 
     // If no errors continue
     if ($msg == 'Please fill in your username and password.') {
         // Get array of strings with username and password
-        if($query = $db->prepare("SELECT * FROM users_tb WHERE users_login = ?")) {
+        if($query = $db->prepare("SELECT * FROM your_users_table WHERE your_users_login = ?")) {
             $query->bind_param('s', $username);
             $query->execute();
             $row = mysqli_fetch_row($result);
