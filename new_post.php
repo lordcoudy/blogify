@@ -25,7 +25,7 @@ class Content {
             // Add to blogs text and username of user who wrote it
             $db = mysqli_connect(DBSERVER, DBUSERNAME, DBPASSWORD, DBNAME);
             $query = $db->prepare(
-                "INSERT INTO blogs (blogs_text, username, userid) VALUES (?, ?, ?)"
+                "INSERT INTO your_text_table (your_text, your_text_username, your_text_userid) VALUES (?, ?, ?)"
             );
             $query->bind_param('ssi',$content, $_SESSION["userid"], $_SESSION["user"] );
             $query->execute();
