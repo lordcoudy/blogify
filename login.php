@@ -59,6 +59,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Close connection
     mysqli_close($db);
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -66,16 +68,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link href="styles_and_scripts/<?= $_SESSION['theme'] ?>.css" type="text/css" rel="stylesheet" id="theme-link">
     <link rel="shortcut icon" type="image/x-icon" href="imgs/favicon.ico" />
-    <link rel="stylesheet" href="styles_and_scripts/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+<?php if ($_SESSION["theme"] == "light"){ ?>
+    <div id="toggleTheme">Switch Theme</div>
+    <label class="switchTheme">
+        <input type="checkbox" name="theme" id="theme-button">
+        <span class="slider round"">
+    </label>
+<?php }else { ?>
+    <div id="toggleTheme">Switch Theme</div>
+    <label class="switchTheme">
+        <input type="checkbox" name="theme" id="theme-button" checked>
+        <span class="slider round"">
+    </label>
+<?php }?>
 <table class="small">
     <tr>
         <td>
-            <img src="imgs/blogify.svg" height="50em" style="margin-top: 20px" alt="Blogify">
+            <img class="darkImage" src="imgs/blogify.svg" height="100px" style="margin-top: 20px" alt="Blogify">
         </td>
     </tr>
     <tr class="login card">
@@ -103,5 +118,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         <p><a href="https://vk.com/magistrofhedgehogs">vk</a></p>
 </footer>
 <script src="styles_and_scripts/scripts.js"></script>
+<script>
+    var btn = document.getElementById("theme-button");
+    var link = document.getElementById("theme-link");
+    btn.addEventListener("click", function () { ChangeTheme(); });
+    function ChangeTheme() {
+        let lightTheme = "styles_and_scripts/light.css";
+        let darkTheme = "styles_and_scripts/dark.css";
+        var currTheme = link.getAttribute("href");
+        var theme = "";
+
+        if (currTheme === lightTheme) {
+            currTheme = darkTheme;
+            theme = "dark";
+        } else {
+            currTheme = lightTheme;
+            theme = "light";
+        }
+        link.setAttribute("href", currTheme);
+        Save(theme);
+    }
+
+    function Save(theme) {
+        var Request = new XMLHttpRequest();
+        Request.open("GET", "configs/themes.php?theme=" + theme, true); // путь к php файлу отвечающий за сохранение
+        Request.send();
+    }
+</script>
 </body>
 </html>

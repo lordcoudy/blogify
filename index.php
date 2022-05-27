@@ -3,6 +3,10 @@
 require_once "configs/config.php";
 require_once "configs/session.php";
 session_start();
+if (!isset($_SESSION["theme"]))
+{
+    $_SESSION["theme"] = 'light';
+}
 echo $_SESSION["userid"];
 if(!empty($_SESSION["userid"])) {
     if ($_SESSION["userid"] == "admin")
