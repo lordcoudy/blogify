@@ -1,8 +1,8 @@
 <?php
-define('DBSERVER', 'localhost');        // Database server
-define('DBUSERNAME', 'root');           // Database username
-define('DBPASSWORD', 'pdtpl0ktn');      // Database password
-define('DBNAME', 'blogify_db');         // Database name
+define('DBSERVER', 'your_host');        // Database server
+define('DBUSERNAME', 'your_username');           // Database username
+define('DBPASSWORD', 'your_password');      // Database password
+define('DBNAME', 'your_db_name');         // Database name
 
 // Connect to MySQL database
 $db = mysqli_connect(DBSERVER, DBUSERNAME, DBPASSWORD, DBNAME);
