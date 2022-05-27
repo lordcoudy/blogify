@@ -8,7 +8,7 @@ try {
     $db = mysqli_connect(DBSERVER, DBUSERNAME, DBPASSWORD, DBNAME);
 
     // DB query to delete
-    $sql = 'DELETE FROM blogs WHERE idblogs = ?';
+    $sql = 'DELETE FROM your_text_table WHERE your_text_id = ?';
 
     $query = $db->prepare($sql);
 
