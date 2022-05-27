@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Hash and salt password with cost = 11
     $password_hash_salt = password_hash($password, PASSWORD_BCRYPT, array('cost' => 11));
 
-    if($query = $db->prepare("SELECT * FROM your_users_table WHERE your_users_login = ?")) {
+    if($query = $db->prepare("SELECT * FROM users_tb WHERE users_login = ?")) {
         // Bind parameters (s = string, i = int)
         $query->bind_param('s', $username);
         $query->execute();
@@ -35,13 +35,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             }
             // If no errors assign user data to current session and add it to db
             if ($msg == 'Please fill this form to create an account.') {
-                $insertQuery = $db->prepare("INSERT INTO your_users_table (your_users_login, your_users_password) VALUES (?, ?);");
+                $insertQuery = $db->prepare("INSERT INTO users_tb (users_login, users_password) VALUES (?, ?);");
                 $insertQuery->bind_param("ss", $username, $password_hash_salt);
                 $result = $insertQuery->execute();
                 if ($result) {
                     $msg .= '<p class="success">Your registration was successful!</p>';
                     $_SESSION["userid"] = $username;
-                    $result_id = $db->query("SELECT your_users_id FROM your_users_table WHERE your_users_login='$username'");
+                    $result_id = $db->query("SELECT idusers FROM users_tb WHERE users_login='$username'");
                     $row = $result_id->fetch_row();
                     $_SESSION["user"] =$row[0];
                     header("location: main_page.php");

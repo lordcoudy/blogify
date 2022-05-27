@@ -18,7 +18,7 @@ if(isset($_SESSION["userid"])){
 }
 
 // Loading all users from db and form a massive
-if ($result = $db->query("SELECT your_login FROM your_users_table"))
+if ($result = $db->query("SELECT users_login FROM users_tb"))
 {
     while ($row = $result->fetch_row())
     {

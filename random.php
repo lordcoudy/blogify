@@ -17,7 +17,7 @@ if(isset($_SESSION["userid"])){
 }
 
 // Get random blog and assign it to array of strings
-if ($result = $db->query("SELECT your_text, your_text_username, your_text_time FROM your_text_table ORDER BY RAND() LIMIT 1"))
+if ($result = $db->query("SELECT blogs_text, username, created FROM blogs ORDER BY RAND() LIMIT 1"))
 {
     $row = $result->fetch_row();
     $rand_texts[] = ['text' => $row[0], 'user' => $row[1], 'edited' => $row[2]];

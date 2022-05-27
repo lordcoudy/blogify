@@ -11,7 +11,7 @@ try {
 
     // Get id of blog and set db query to get that blog
     $blog_id= $_POST['id'];
-    $sql = "SELECT your_text, your_text_id FROM your_text_table WHERE your_text_id = '$blog_id'";
+    $sql = "SELECT blogs_text, idblogs FROM blogs WHERE idblogs = '$blog_id'";
 
     $result = $db->query($sql);
 
@@ -23,7 +23,7 @@ try {
         try {
             // Update text of blog and go to profile
             $content = $_POST["content"];
-            $sql = "UPDATE your_text_table SET your_text=?, created=CURRENT_TIMESTAMP WHERE your_text_id=?";
+            $sql = "UPDATE blogs SET blogs_text=?, created=CURRENT_TIMESTAMP WHERE idblogs=?";
             $query = $db->prepare($sql);
             $search = 'img';
             $replace = 'img style="max-width: 100%; height: auto; border-radius: 15px;" ';
