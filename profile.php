@@ -16,7 +16,7 @@ if(isset($_SESSION["userid"])){
 }
 
 // Get all blogs of current user
-if ($result = $db->query("SELECT blogs_text, idblogs, created FROM blogs where username='$user'"))
+if ($result = $db->query("SELECT your_text, your_text_id, your_text_time FROM your_text_table where your_text_username='$user'"))
 {
     while ($row = $result->fetch_row())
     {
