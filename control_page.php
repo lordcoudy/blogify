@@ -18,7 +18,7 @@ if(isset($_SESSION["userid"])){
 }
 
 // Loading all blogs from db and form a massive
-if ($result = $db->query("SELECT blogs_text, idblogs, created, username FROM blogs"))
+if ($result = $db->query("SELECT your_text, your_text_id, your_text_time, your_username FROM your_text_table"))
 {
     while ($row = $result->fetch_row())
     {
